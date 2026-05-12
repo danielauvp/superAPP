@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super AUVP - Blueprint Executivo</title>
+    <style>
+        :root {
+            --primary: #2B3A4A;
+            --secondary: #5A6B7C;
+            --accent: #D4AF37;
+            --bg-page: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --text-main: #333333;
+            --text-light: #666666;
+            --success: #2E7D32;
+            --success-bg: #F2FAF4;
+            --danger: #C62828;
+            --danger-bg: #FEF4F4;
+            --border-light: #E0E4E8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.5;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .document-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 50px 60px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .project-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: var(--primary);
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        h2.section-title {
+            color: var(--primary);
+            font-size: 20px;
+            margin: 50px 0 30px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- ORGANOGRAMA ESTRUTURAL E FLUXO --- */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .node {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            position: relative;
+            z-index: 2;
+        }
+
+        .node-flow {
+            width: 320px; /* Um pouco mais largo para acomodar os parágrafos do fluxo */
+        }
+
+        .node.level-1 { border-top: 4px solid var(--primary); }
+        .node.level-2-ideation { border-top: 4px solid var(--accent); }
+        .node.level-2-dev { border-top: 4px solid var(--secondary); }
+
+        .node.persona {
+            background-color: #F8FBFF;
+            border: 1px dashed #A0B3C6;
+        }
+
+        .node-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .node-desc {
+            font-size: 12px;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .persona-badge {
+            display: inline-block;
+            background-color: #E3F2FD;
+            color: #1565C0;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Cores das Badges no Fluxo */
+        .badge-step { background-color: var(--bg-page); color: var(--text-light); border: 1px solid var(--border-light); }
+        .badge-community { background-color: #fffcf0; color: #b78a00; border: 1px solid #f7e096; }
+        .badge-po { background-color: #f0f4f2; color: var(--primary); border: 1px solid #cce0d6; }
+        .badge-dev { background-color: #f0f7ff; color: #0256b3; border: 1px solid #b3d4ff; }
+        .badge-gov { background-color: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .badge-success { background-color: var(--success-bg); color: var(--success); border: 1px solid #cce0d6; }
+
+        /* Linhas do Organograma / Fluxo */
+        .line-v { width: 2px; height: 30px; background-color: var(--border-light); margin: 0 auto; }
+        .branches { display: flex; justify-content: center; width: 100%; position: relative; }
+        .branches::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); }
+        .branch { display: flex; flex-direction: column; align-items: center; width: 50%; position: relative; }
+        .branch::before { content: ''; width: 2px; height: 20px; background-color: var(--border-light); }
+        
+        .branch-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 10px 0 20px 0;
+            background: var(--bg-page);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .sub-branches { display: flex; gap: 20px; margin-top: 20px; position: relative; }
+        .sub-branches::before { content: ''; position: absolute; top: -20px; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); }
+        .sub-branch-item { display: flex; flex-direction: column; align-items: center; position: relative; }
+        .sub-branch-item::before { content: ''; position: absolute; top: -20px; width: 2px; height: 20px; background-color: var(--border-light); }
+
+        /* --- CENÁRIOS OPERACIONAIS --- */
+        .scenarios {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .scenario-card {
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: var(--bg-card);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .scen-1 { border-top: 4px solid var(--primary); }
+        .scen-2 { border-top: 4px solid var(--accent); }
+        .scen-3 { border-top: 4px solid var(--secondary); }
+
+        .scenario-header {
+            padding: 16px 24px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scenario-title {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .scenario-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            border-radius: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scenario-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0;
+        }
+
+        .pros-cons-box {
+            padding: 24px;
+        }
+
+        .pros-cons-box.pros {
+            background-color: var(--success-bg);
+            border-right: 1px solid #FFFFFF;
+        }
+
+        .pros-cons-box.cons {
+            background-color: var(--danger-bg);
+        }
+
+        .pc-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pc-title.pros-title { color: var(--success); }
+        .pc-title.cons-title { color: var(--danger); }
+
+        .pc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pc-list li {
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .pc-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .pros-list li::before { color: var(--success); }
+        .cons-list li::before { color: var(--danger); }
+
+        .pc-list li strong {
+            font-weight: 700;
+            color: #111111;
+        }
+
+        /* Responsividade */
+        @media (max-width: 850px) {
+            .branches { flex-direction: column; align-items: center; gap: 40px; }
+            .branches::before { display: none; }
+            .branch { width: 100%; }
+            .branch::before { display: none; }
+            .scenario-body { grid-template-columns: 1fr; }
+            .pros-cons-box.pros { border-right: none; border-bottom: 2px solid #FFFFFF; }
+            .document-wrapper { padding: 30px 20px; }
+            .sub-branches { flex-direction: column; gap: 30px; }
+            .sub-branches::before { display: none; }
+            .sub-branch-item::before { height: 30px; top: -30px; }
+            .scenario-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .node-flow { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-wrapper">
+        <header>
+            <div class="project-label">Blueprint Estratégico</div>
+            <h1>Super AUVP</h1>
+            <p class="subtitle">Evolução do Produto: Ecossistema, Produtividade e Integração Comunitária</p>
+        </header>
+
+        <h2 class="section-title">Governança e Estrutura Organizacional</h2>
+        
+        <div class="org-chart">
+            <div class="node level-1">
+                <div class="node-title">PM Central</div>
+                <div class="node-desc">Visão estratégica macro, integração de módulos e coordenação do roadmap do SuperApp.</div>
+            </div>
+            
+            <div class="line-v"></div>
+
+            <div class="branches">
+                
+                <div class="branch">
+                    <div class="branch-title">Idealização & Produto</div>
+                    
+                    <div class="node level-2-ideation">
+                        <div class="node-title">Heavy User (HU)</div>
+                        <div class="node-desc">Ponte operacional. Refina demandas, organiza prioridades e modera as ideias da comunidade.</div>
+                    </div>
+                    
+                    <div class="line-v"></div>
+                    
+                    <div class="node persona">
+                        <span class="persona-badge">Persona Externa</span>
+                        <div class="node-title">Comunidade (Alunos)</div>
+                        <div class="node-desc">Uso real do produto. Propõe ideias, vota melhorias, reporta bugs e valida usabilidade.</div>
+                    </div>
+                </div>
+
+                <div class="branch">
+                    <div class="branch-title">Desenvolvimento & Governança</div>
+                    
+                    <div class="node level-2-dev">
+                        <div class="node-title">Esp. Open Source</div>
+                        <div class="node-desc">Part-time. Sustentação operacional técnica, e moderação do GitHub.</div>
+                    </div>
+                    
+                    <div class="line-v"></div>
+                    
+                    <div class="sub-branches">
+                        <div class="sub-branch-item">
+                            <div class="node">
+                                <div class="node-title">Devs Internos</div>
+                                <div class="node-desc">Foco em core, code review, arquitetura, segurança estrutural e aprovação final de deploys.</div>
+                            </div>
+                        </div>
+                        <div class="sub-branch-item">
+                            <div class="node persona">
+                                <span class="persona-badge">Persona Externa</span>
+                                <div class="node-title">Devs da Comunidade</div>
+                                <div class="node-desc">Atuação colaborativa em melhorias, refatorações, correções de bugs e features periféricas.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h2 class="section-title">Análise de Cenários Operacionais (HUs)</h2>
+
+        <div class="scenarios">
+            
+            <div class="scenario-card scen-1">
+                <div class="scenario-header">
+                    <h3 class="scenario-title">Cenário 1: Tudo Centralizado (POs Internos como HUs)</h3>
+                    <span class="scenario-badge">Modelo Tradicional</span>
+                </div>
+                <div class="scenario-body">
+                    <div class="pros-cons-box pros">
+                        <div class="pc-title pros-title">Prós </div>
+                        <ul class="pc-list pros-list">
+                            <li><strong>Controle e garantia</strong> total sobre os prazos de entrega.</li>
+                            <li><strong>Visão ecossistêmica</strong> já perfeitamente alinhada à diretoria.</li>
+                            <li><strong>Alta previsibilidade</strong> na execução do roadmap estabelecido.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-box cons">
+                        <div class="pc-title cons-title">Contras </div>
+                        <ul class="pc-list cons-list">
+                            <li><strong>Custo financeiro elevado</strong> (necessidade de ampliar o time).</li>
+                            <li><strong>Sobrecarga direta</strong> nas atividades atuais dos POs.</li>
+                            <li><strong>Distanciamento da visão empírica</strong> do aluno (perda da essência).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario-card scen-2">
+                <div class="scenario-header">
+                    <h3 class="scenario-title">Cenário 2: Modelo Híbrido (HUs Internalizados)</h3>
+                    <span class="scenario-badge">Contratação Estratégica</span>
+                </div>
+                <div class="scenario-body">
+                    <div class="pros-cons-box pros">
+                        <div class="pc-title pros-title">Prós</div>
+                        <ul class="pc-list pros-list">
+                            <li><strong>Conhecimento prático extremo</strong> das dores reais da plataforma.</li>
+                            <li><strong>Forte conexão</strong> e validação orgânica junto à comunidade.</li>
+                            <li>Gera um forte <strong>plano de carreira (retenção)</strong> para alunos destaque.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-box cons">
+                        <div class="pc-title cons-title">Contras </div>
+                        <ul class="pc-list cons-list">
+                            <li>Acrescenta novos <strong>custos trabalhistas</strong> e de contratação.</li>
+                            <li>Desafios de gestão em <strong>regimes remotos ou part-time</strong>.</li>
+                            <li>Possível <strong>atrito de aculturamento</strong> com a estrutura corporativa.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario-card scen-3">
+                <div class="scenario-header">
+                    <h3 class="scenario-title">Cenário 3: Colaboração Externa (HUs Não Internalizados)</h3>
+                    <span class="scenario-badge">Crescimento Orgânico</span>
+                </div>
+                <div class="scenario-body">
+                    <div class="pros-cons-box pros">
+                        <div class="pc-title pros-title">Prós </div>
+                        <ul class="pc-list pros-list">
+                            <li><strong>Custo direto zero</strong> (movido puramente por recompensa/gamificação).</li>
+                            <li><strong>Sensação máxima de pertencimento</strong> comunitário para os usuários.</li>
+                            <li><strong>Alta escalabilidade</strong> orgânica de pessoas dispostas a ajudar.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-box cons">
+                        <div class="pc-title cons-title">Contras</div>
+                        <ul class="pc-list cons-list">
+                            <li><strong>Alto índice de rotatividade</strong> e abandono repentino de iniciativas.</li>
+                            <li><strong>Baixa ou nenhuma previsibilidade</strong> de cumprimento de prazos.</li>
+                            <li><strong>Curva de aprendizado constante</strong>, reiniciada a cada novo HU.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">Fluxo: Da Ideia ao Lançamento</h2>
+        
+        <div class="org-chart">
+            
+            <div class="node node-flow level-1">
+                <span class="persona-badge badge-step">Passo 01: Ideação</span>
+                <div class="node-title">Submissão de Ideia ou Bug</div>
+                <div class="node-desc">Membros da comunidade propõem features, melhorias ou reportam bugs via canal estruturado (GitHub Issues, Fórum, Form).</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-community" style="margin: 0;">Comunidade (Alunos)</span>
+                </div>
+            </div>
+
+            <div class="line-v"></div>
+
+            <div class="node node-flow level-2-ideation">
+                <span class="persona-badge badge-step">Passo 02: Curadoria</span>
+                <div class="node-title">Triagem & Gamificação</div>
+                <div class="node-desc">PO do módulo (HU) e comunidade votam e priorizam as ideias. Sistema de gamificação pontua contribuições de destaque.</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-po" style="margin: 0;">Heavy User / PO Módulo</span>
+                    <span class="persona-badge badge-community" style="margin: 0;">Comunidade (Votos)</span>
+                </div>
+            </div>
+
+            <div class="line-v"></div>
+
+            <div class="node node-flow level-2-ideation">
+                <span class="persona-badge badge-step">Passo 03: Refinamento</span>
+                <div class="node-title">Estruturação do Backlog</div>
+                <div class="node-desc">Trabalho mais operacional de escrita das tasks. PO Central valida alinhamento estratégico com o SuperApp para autorizar dev.</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-po" style="margin: 0;">Heavy User</span>
+                    <span class="persona-badge badge-po" style="margin: 0; background:#e2e8f0; color:#333; border-color:#cbd5e1;">PO Central</span>
+                </div>
+            </div>
+
+            <div class="line-v"></div>
+
+            <div class="node node-flow level-2-dev">
+                <span class="persona-badge badge-step">Passo 04: Código</span>
+                <div class="node-title">Desenvolvimento Colaborativo</div>
+                <div class="node-desc">Devs da comunidade assumem tarefas abertas. Devs internos executam demandas críticas ou de segurança avançada.</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-community" style="margin: 0;">Devs Comunidade</span>
+                    <span class="persona-badge badge-dev" style="margin: 0;">Devs Internos</span>
+                </div>
+            </div>
+
+            <div class="line-v"></div>
+
+            <div class="node node-flow" style="border-top: 4px solid var(--danger);">
+                <span class="persona-badge badge-step">Passo 05: Revisão</span>
+                <div class="node-title" style="color: var(--danger);">Code Review & Segurança</div>
+                <div class="node-desc">Todo código passa por revisão crítica para garantir qualidade e previnir vulnerabilidades ou bugs.</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-dev" style="margin: 0;">Devs Internos</span>
+                </div>
+            </div>
+
+            <div class="line-v"></div>
+
+            <div class="node node-flow" style="border-top: 4px solid var(--success);">
+                <span class="persona-badge badge-success">Passo 06: Lançamento</span>
+                <div class="node-title" style="color: var(--success);">Deploy & Reconhecimento</div>
+                <div class="node-desc">Feature vai para produção. O sistema atribui os devidos créditos e pontuação para os membros da comunidade envolvidos.</div>
+                <div style="margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                    <span class="persona-badge badge-dev" style="margin: 0;">Devs Internos (Deploy)</span>
+                    <span class="persona-badge badge-community" style="margin: 0;">Créditos/Gamificação</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
