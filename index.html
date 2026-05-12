@@ -39,15 +39,16 @@
             padding: 50px 60px;
         }
 
+        /* Header Centralizado */
         header {
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 20px;
+            padding-bottom: 30px;
             margin-bottom: 40px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            text-align: center;
+            gap: 15px;
         }
 
         .project-label {
@@ -105,7 +106,7 @@
         }
 
         .node-flow {
-            width: 320px; /* Um pouco mais largo para acomodar os parágrafos do fluxo */
+            width: 320px;
         }
 
         .node.level-1 { border-top: 4px solid var(--primary); }
@@ -142,7 +143,6 @@
             text-transform: uppercase;
         }
 
-        /* Cores das Badges no Fluxo */
         .badge-step { background-color: var(--bg-page); color: var(--text-light); border: 1px solid var(--border-light); }
         .badge-community { background-color: #fffcf0; color: #b78a00; border: 1px solid #f7e096; }
         .badge-po { background-color: #f0f4f2; color: var(--primary); border: 1px solid #cce0d6; }
@@ -287,6 +287,28 @@
             color: #111111;
         }
 
+        /* --- FLUXO DE FEATURE --- */
+        .flow-wrapper { position: relative; padding: 20px 0; }
+        .flow-step { display: flex; align-items: stretch; position: relative; }
+        .flow-left { width: 140px; flex-shrink: 0; text-align: right; padding-right: 30px; padding-bottom: 40px; }
+        .flow-left-label { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .flow-spine { width: 2px; background: var(--border-light); flex-shrink: 0; position: relative; }
+        .flow-step:last-child .flow-spine { background: none; }
+        .flow-node { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--bg-card); background: var(--primary); z-index: 1; box-shadow: 0 0 0 1px var(--border-light); }
+        .flow-right { flex: 1; padding: 0 0 40px 30px; }
+        
+        .flow-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 10px; padding: 20px; border-left: 4px solid var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .step-num { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--text-light); margin-bottom: 6px; display: block; }
+        .flow-card-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .flow-card-desc { font-size: 13px; color: var(--text-main); margin-bottom: 15px; line-height: 1.5; }
+        
+        .flow-actors { display: flex; flex-wrap: wrap; gap: 8px; }
+        .actor { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; border: 1px solid; }
+        .actor-community { background: #fffcf0; color: #b78a00; border-color: #f7e096; }
+        .actor-po { background: #f0f4f2; color: var(--primary); border-color: #cce0d6; }
+        .actor-dev { background: #f0f7ff; color: #0256b3; border-color: #b3d4ff; }
+        .actor-gov { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+
         /* Responsividade */
         @media (max-width: 850px) {
             .branches { flex-direction: column; align-items: center; gap: 40px; }
@@ -301,6 +323,7 @@
             .sub-branch-item::before { height: 30px; top: -30px; }
             .scenario-header { flex-direction: column; align-items: flex-start; gap: 10px; }
             .node-flow { width: 100%; }
+            .flow-left { width: 90px; padding-right: 15px; }
         }
     </style>
 </head>
@@ -308,12 +331,12 @@
 
     <div class="document-wrapper">
         <header>
+            <img src="https://github.com/danielauvp/superAPP/blob/main/auvp-capital-vertical-preta.png?raw=true" alt="Logo AUVP" style="height: 80px; object-fit: contain; margin-bottom: 10px;">
             <div>
                 <div class="project-label">Blueprint Estratégico</div>
                 <h1>Super AUVP</h1>
                 <p class="subtitle">Evolução do Produto: Ecossistema, Produtividade e Integração Comunitária</p>
             </div>
-            <img src="https://github.com/danielauvp/superAPP/blob/main/auvp-capital-vertical-preta.png?raw=true" alt="Logo AUVP" style="height: 65px; object-fit: contain;">
         </header>
 
         <h2 class="section-title">Governança e Estrutura Organizacional</h2>
