@@ -23,6 +23,54 @@
             --border-light: #E0E4E8;
             --info-blue: #0256b3;
             --info-bg: #f0f7ff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Classes para o Modo Escuro */
+        body.dark-mode {
+            --bg-page: #0a0c10;
+            --bg-card: #12151c;
+            --text-main: #e8eaf0;
+            --text-light: #7a8299;
+            --border-light: #252b38;
+            --success-bg: rgba(74, 240, 176, 0.06);
+            --danger-bg: rgba(240, 106, 106, 0.06);
+        }
+        body.dark-mode .fixed-nav {
+            background-color: rgba(18, 21, 28, 0.95);
+        }
+        body.dark-mode .nav-btn {
+            color: var(--text-main);
+        }
+        body.dark-mode .nav-btn:hover {
+            background-color: #1a1f2b;
+        }
+        body.dark-mode .org-chart,
+        body.dark-mode .branch-title,
+        body.dark-mode .flow-card,
+        body.dark-mode .criteria-card {
+            background-color: #0a0c10;
+        }
+        body.dark-mode .flow-actor-badge {
+            background-color: #12151c;
+        }
+        body.dark-mode h1,
+        body.dark-mode h2.section-title,
+        body.dark-mode .node-title,
+        body.dark-mode .criteria-card h4,
+        body.dark-mode .flow-title,
+        body.dark-mode .pc-list li strong {
+            color: #ffffff;
+        }
+        body.dark-mode .gov-box {
+            background: #1c1a16;
+            border-color: #4a3f1a;
+        }
+        body.dark-mode .gov-box[style*="background"] {
+            background: #11151c !important;
+        }
+        body.dark-mode .nav-logo {
+            filter: invert(1) brightness(2);
         }
 
         body {
@@ -31,24 +79,121 @@
             background-color: var(--bg-page);
             line-height: 1.5;
             margin: 0;
-            padding: 30px 15px;
+            padding: 130px 15px 40px; /* Ajustado padding superior para compensar o menu fixo maior */
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s, color 0.3s;
         }
+
+        /* --- NAV / HEADER FIXO --- */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+            padding: 15px 0; /* Padding vertical no header */
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column; /* Alinhamento vertical para centralizar tudo */
+            align-items: center;
+            gap: 15px; /* Espaço entre a logo e os links */
+            position: relative;
+        }
+
+        .nav-logo {
+            height: 55px; /* Logo maior */
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center; /* Garante que os links fiquem centralizados na linha */
+            width: 100%;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap; /* Impede quebra de texto nos botões */
+        }
+
+        .nav-btn:hover {
+            background-color: #EAF0EE;
+            border-color: rgba(43, 58, 74, 0.05);
+        }
+
+        /* Botão de Alternância de Tema */
+        .theme-toggle-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        body.dark-mode .theme-toggle-btn {
+            color: #ffffff;
+        }
+        .theme-toggle-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        body.dark-mode .theme-toggle-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .theme-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        .theme-toggle-btn .moon-icon { display: block; }
+        .theme-toggle-btn .sun-icon { display: none; }
+        body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
+        body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
 
         .document-wrapper {
             max-width: 1100px;
             margin: 0 auto;
             background-color: var(--bg-card);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(43, 58, 74, 0.04);
+            border-radius: 16px;
             overflow: hidden;
-            padding: 50px 60px;
+            padding: 60px;
+            border: 1px solid var(--border-light);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
-        /* Header Centralizado com a logo */
-        header {
+        /* Header Interno Centralizado */
+        .doc-intro-header {
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 30px;
-            margin-bottom: 40px;
+            padding-bottom: 35px;
+            margin-bottom: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,34 +205,51 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--accent);
-            font-weight: 600;
-            font-size: 12px;
-            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 4px;
+            background: #fffcf0;
+            padding: 4px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        body.dark-mode .project-label {
+            background: rgba(212, 175, 55, 0.05);
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 36px;
             color: var(--primary);
             margin: 0 0 8px 0;
-            font-weight: 700;
+            font-weight: 900;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: var(--text-light);
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 500;
             margin: 0;
+            max-width: 700px;
         }
 
         h2.section-title {
             color: var(--primary);
-            font-size: 20px;
-            margin: 50px 0 30px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border-light);
+            font-size: 22px;
+            margin: 60px 0 35px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Espaçamento interno para âncoras de navegação */
+        section {
+            scroll-margin-top: 150px; /* Ajustado para o novo tamanho do header */
         }
 
         /* --- ORGANOGRAMA ESTRUTURAL E FLUXO --- */
@@ -96,22 +258,30 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 40px;
+            background: #FAFBFB;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .node {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 16px;
-            width: 260px;
+            border-radius: 10px;
+            padding: 18px;
+            width: 270px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             position: relative;
             z-index: 2;
+            transition: var(--transition);
         }
 
-        .node-flow {
-            width: 320px;
+        .node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(43, 58, 74, 0.08);
+            border-color: var(--secondary);
         }
 
         .node.level-1 { border-top: 4px solid var(--primary); }
@@ -119,33 +289,38 @@
         .node.level-2-dev { border-top: 4px solid var(--secondary); }
 
         .node.persona {
-            background-color: #F8FBFF;
+            background-color: #F9FBFD;
             border: 1px dashed #A0B3C6;
+        }
+        body.dark-mode .node.persona {
+            background-color: #141923;
+            border-color: #252b38;
         }
 
         .node-title {
-            font-weight: 600;
+            font-weight: 800;
             font-size: 15px;
             color: var(--primary);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .node-desc {
-            font-size: 12px;
+            font-size: 12.5px;
             color: var(--text-light);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .persona-badge {
             display: inline-block;
             background-color: #E3F2FD;
             color: #1565C0;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 12px;
-            margin-bottom: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .badge-step { background-color: var(--bg-page); color: var(--text-light); border: 1px solid var(--border-light); }
@@ -156,42 +331,46 @@
         .badge-success { background-color: var(--success-bg); color: var(--success); border: 1px solid #cce0d6; }
 
         /* Linhas do Organograma / Fluxo */
-        .line-v { width: 2px; height: 30px; background-color: var(--border-light); margin: 0 auto; }
+        .line-v { width: 2px; height: 35px; background-color: var(--border-light); margin: 0 auto; transition: background-color 0.3s; }
         .branches { display: flex; justify-content: center; width: 100%; position: relative; }
-        .branches::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); }
+        .branches::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); transition: background-color 0.3s; }
         .branch { display: flex; flex-direction: column; align-items: center; width: 50%; position: relative; }
-        .branch::before { content: ''; width: 2px; height: 20px; background-color: var(--border-light); }
+        .branch::before { content: ''; width: 2px; height: 25px; background-color: var(--border-light); transition: background-color 0.3s; }
         
         .branch-title {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-weight: 700;
             color: var(--text-light);
-            margin: 10px 0 20px 0;
+            margin: 10px 0 25px 0;
             background: var(--bg-page);
-            padding: 4px 12px;
-            border-radius: 12px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
-        .sub-branches { display: flex; gap: 20px; margin-top: 20px; position: relative; }
-        .sub-branches::before { content: ''; position: absolute; top: -20px; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); }
+        .sub-branches { display: flex; gap: 20px; margin-top: 25px; position: relative; }
+        .sub-branches::before { content: ''; position: absolute; top: -25px; left: 25%; right: 25%; height: 2px; background-color: var(--border-light); transition: background-color 0.3s; }
         .sub-branch-item { display: flex; flex-direction: column; align-items: center; position: relative; }
-        .sub-branch-item::before { content: ''; position: absolute; top: -20px; width: 2px; height: 20px; background-color: var(--border-light); }
+        .sub-branch-item::before { content: ''; position: absolute; top: -25px; width: 2px; height: 25px; background-color: var(--border-light); transition: background-color 0.3s; }
 
         /* --- GOVERNANÇA E DIRETRIZES DE ACEITE --- */
         .gov-box {
             background: #fffcf0;
             border: 1px solid #f7e096;
             border-left: 4px solid var(--accent);
-            padding: 24px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 12px;
             margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.03);
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .gov-title {
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 800;
             color: #b78a00;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -199,33 +378,40 @@
         }
 
         .gov-text {
-            font-size: 14px;
+            font-size: 14.5px;
             color: var(--text-main);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .criteria-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
         .criteria-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .criteria-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
         }
 
         .criteria-card h4 {
             font-size: 13px;
             text-transform: uppercase;
             color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 700;
+            margin-bottom: 14px;
+            font-weight: 800;
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 6px;
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
         .pc-list {
@@ -235,7 +421,7 @@
         }
 
         .pc-list li {
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-main);
             margin-bottom: 10px;
             padding-left: 18px;
@@ -257,35 +443,39 @@
             font-weight: 700;
             color: #111111;
         }
+        body.dark-mode .pc-list li strong {
+            color: #ffffff;
+        }
 
-        /* --- PIPELINE DE INOVAÇÃO (GRID CLARO) --- */
+        /* --- PIPELINE DE INOVAÇÃO --- */
         .flow-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 30px;
             position: relative;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .flow-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 24px;
+            padding: 28px 24px 24px;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 4px 16px rgba(43, 58, 74, 0.02);
+            transition: var(--transition);
             border-top: 4px solid var(--secondary);
         }
 
         .flow-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 12px 30px rgba(43, 58, 74, 0.08);
             border-color: var(--primary);
         }
 
         .flow-card.step-ideation { border-top-color: var(--accent); }
         .flow-card.step-gate { border-top-color: var(--accent); background: #fffdf5; }
+        body.dark-mode .flow-card.step-gate { background: #1c1a14; }
         .flow-card.step-dev { border-top-color: var(--secondary); }
         .flow-card.step-review { border-top-color: var(--danger); background: var(--danger-bg); }
         .flow-card.step-release { border-top-color: var(--success); background: var(--success-bg); }
@@ -310,13 +500,14 @@
 
         .flow-title {
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
-            margin: 15px 0 10px 0;
+            margin: 12px 0 10px 0;
+            letter-spacing: -0.3px;
         }
 
         .flow-desc {
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-light);
             line-height: 1.5;
             margin-bottom: 20px;
@@ -340,6 +531,9 @@
             border: 1px solid var(--border-light);
             text-transform: uppercase;
         }
+        body.dark-mode .flow-actor-badge {
+            background: var(--bg-card);
+        }
 
         .actor-comm { border-color: rgba(212, 175, 55, 0.3); color: #b78a00; }
         .actor-po { border-color: rgba(43, 58, 74, 0.2); color: var(--primary); }
@@ -348,254 +542,290 @@
 
         /* Responsividade */
         @media (max-width: 850px) {
+            .fixed-nav { padding: 10px 0; }
+            .nav-container { gap: 10px; }
+            .nav-logo { height: 45px; }
+            .nav-links { display: none; }
+            .theme-toggle-btn { top: 12px; right: 15px; }
+            body { padding-top: 150px; } /* Aumenta o padding superior no mobile */
+            
             .branches { flex-direction: column; align-items: center; gap: 40px; }
             .branches::before { display: none; }
             .branch { width: 100%; }
             .branch::before { display: none; }
             .criteria-grid, .flow-grid { grid-template-columns: 1fr; }
-            .document-wrapper { padding: 30px 20px; }
+            .document-wrapper { padding: 40px 24px; }
             .scenario-header { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="document-wrapper">
-        <header>
-            <img src="https://github.com/danielauvp/superAPP/blob/main/auvp-capital-vertical-preta.png?raw=true" alt="Logo AUVP" style="height: 80px; object-fit: contain; margin-bottom: 10px;">
-            <div>
-                <div class="project-label">Blueprint Estratégico</div>
-                <h1>Super AUVP</h1>
-                <p class="subtitle">Evolução do Produto: Ecossistema, Governança Open-Core e Alinhamento Técnico</p>
+    <nav class="fixed-nav">
+        <div class="nav-container">
+            <img src="https://github.com/danielauvp/superAPP/blob/main/auvp-capital-vertical-preta.png?raw=true" alt="AUVP" class="nav-logo">
+            
+            <div class="nav-links">
+                <a href="#estrutura" class="nav-btn">Estrutura</a>
+                <a href="#diretrizes" class="nav-btn">Diretrizes</a>
+                <a href="#arquitetura" class="nav-btn">Arquitetura</a>
+                <a href="#pipeline" class="nav-btn">Pipeline</a>
             </div>
+
+            <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar tema">
+                <svg class="moon-icon" viewBox="0 0 24 24">
+                    <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.3-3.8 8.7.6 3.9 3.8 7.1 7.7 7.7 3.4.5 6.7-1 8.7-3.8.3-.4.9-.6 1.4-.4.5.2.8.7.7 1.2-.9 4.6-5 8.1-9.7 8.3zm-1.7-17.7C7.2 5.1 4.2 8.2 4.2 12c0 4.3 3.5 7.8 7.8 7.8 3.8 0 6.9-3 7.7-6.4-1.1.5-2.3.8-3.5.8-4.7-.1-8.5-3.9-8.6-8.6-.1-1.3.2-2.5.7-3.3z"/>
+                </svg>
+                <svg class="sun-icon" viewBox="0 0 24 24">
+                    <path d="M12 4.5c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zm0 18c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zm7.1-15.7c-.3 0-.5-.1-.7-.3l-1.4-1.4c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.2.2-.4.3-.7.3zm-12.8 12.8c-.3 0-.5-.1-.7-.3l-1.4-1.4c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.2.2-.4.3-.7.3zM22.5 13h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c-.6 0 1 .4 1 1s-.4 1-1 1zm-18 0h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c-.6 0 1 .4 1 1s-.4 1-1 1zm14.6 4.2c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.4.3-.7.3zm-12.8-12.8c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.4.3-.7.3zM12 16.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5zm0-7c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S13.4 9.5 12 9.5z"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="document-wrapper">
+        <header class="doc-intro-header">
+            <div class="project-label">Blueprint Estratégico</div>
+            <h1>Super AUVP</h1>
+            <p class="subtitle">Evolução do Produto: Ecossistema, Governança Open-Core e Alinhamento Técnico</p>
         </header>
 
-        <h2 class="section-title">Governança e Estrutura Organizacional</h2>
-        
-        <div class="org-chart">
-            <div class="node level-1">
-                <div class="node-title">PO Central</div>
-                <div class="node-desc">Visão estratégica macro, integração de módulos e coordenação do roadmap do SuperApp.</div>
-            </div>
-            
-            <div class="line-v"></div>
-
-            <div class="branches">
+        <section id="estrutura">
+            <h2 class="section-title">Governança e Estrutura Organizacional</h2>
+            <div class="org-chart">
+                <div class="node level-1">
+                    <div class="node-title">PO Central</div>
+                    <div class="node-desc">Visão estratégica macro, integração de módulos e coordenação do roadmap do SuperApp.</div>
+                </div>
                 
-                <div class="branch">
-                    <div class="branch-title">Idealização & Produto</div>
-                    
-                    <div class="node level-2-ideation">
-                        <div class="node-title">Heavy User (HU)</div>
-                        <div class="node-desc">Ponte operacional. Refina demandas, organiza prioridades e modera as ideias da comunidade.</div>
-                    </div>
-                    
-                    <div class="line-v"></div>
-                    
-                    <div class="node persona">
-                        <span class="persona-badge">Persona Externa</span>
-                        <div class="node-title">Comunidade (Alunos)</div>
-                        <div class="node-desc">Uso real do produto. Propõe ideias, vota melhorias, reporta bugs e valida usabilidade.</div>
-                    </div>
-                </div>
+                <div class="line-v"></div>
 
-                <div class="branch">
-                    <div class="branch-title">Desenvolvimento & Governança</div>
+                <div class="branches">
                     
-                    <div class="node level-2-dev">
-                        <div class="node-title">Esp. Open Source</div>
-                        <div class="node-desc">Part-time. Sustentação operacional técnica, e moderação do GitHub.</div>
-                    </div>
-                    
-                    <div class="line-v"></div>
-                    
-                    <div class="sub-branches">
-                        <div class="sub-branch-item">
-                            <div class="node">
-                                <div class="node-title">Devs Internos</div>
-                                <div class="node-desc">Foco em core, code review, arquitetura, segurança estrutural e aprovação final de deploys.</div>
-                            </div>
+                    <div class="branch">
+                        <div class="branch-title">Idealização & Produto</div>
+                        
+                        <div class="node level-2-ideation">
+                            <div class="node-title">Heavy User (HU)</div>
+                            <div class="node-desc">Ponte operacional. Refina demandas, organiza prioridades e modera as ideias da comunidade.</div>
                         </div>
-                        <div class="sub-branch-item">
-                            <div class="node persona">
-                                <span class="persona-badge">Persona Externa</span>
-                                <div class="node-title">Devs da Comunidade</div>
-                                <div class="node-desc">Atuação colaborativa em melhorias, refatorações, correções de bugs e features periféricas.</div>
-                            </div>
+                        
+                        <div class="line-v"></div>
+                        
+                        <div class="node persona">
+                            <span class="persona-badge">Persona Externa</span>
+                            <div class="node-title">Comunidade (Alunos)</div>
+                            <div class="node-desc">Uso real do produto. Propõe ideias, vota melhorias, reporta bugs e valida usabilidade.</div>
                         </div>
                     </div>
+
+                    <div class="branch">
+                        <div class="branch-title">Desenvolvimento & Governança</div>
+                        
+                        <div class="node level-2-dev">
+                            <div class="node-title">Esp. Open Source</div>
+                            <div class="node-desc">Part-time. Sustentação operacional técnica, e moderação do GitHub.</div>
+                        </div>
+                        
+                        <div class="line-v"></div>
+                        
+                        <div class="sub-branches">
+                            <div class="sub-branch-item">
+                                <div class="node">
+                                    <div class="node-title">Devs Internos</div>
+                                    <div class="node-desc">Foco em core, code review, arquitetura, segurança estrutural e aprovação final de deploys.</div>
+                                </div>
+                            </div>
+                            <div class="sub-branch-item">
+                                <div class="node persona">
+                                    <span class="persona-badge">Persona Externa</span>
+                                    <div class="node-title">Devs da Comunidade</div>
+                                    <div class="node-desc">Atuação colaborativa em melhorias, refatorações, correções de bugs e features periféricas.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="diretrizes">
+            <h2 class="section-title">Diretrizes de Governança & Critérios de Aceite</h2>
+            <div class="gov-box">
+                <div class="gov-title">A Regra de Ouro da AUVP</div>
+                <div class="gov-text">
+                    <strong>A comunidade influencia o roadmap. A AUVP controla o produto.</strong><br>
+                    Evitamos o populismo técnico tratando os votos da comunidade estritamente como <em>sinal de demanda</em> e nunca como aprovação automática. Para que uma ideia saia do papel e entre oficialmente no backlog de desenvolvimento, ela precisa obrigatoriamente superar dois filtros severos de avaliação.
+                </div>
+                
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>1. Portão Funcional (Negócio e UX)</h4>
+                        <ul class="pc-list">
+                            <li><strong>Aderência Estratégica:</strong> Fortalecimento dos pilares de educação e produtividade financeira. Ideias sem conexão ao propósito central ou customizações hiper-nichadas são vetadas.</li>
+                            <li><strong>Validação de Dor Real:</strong> Resolução de gargalos recorrentes e escaláveis da base. Preferências individuais ou exceções operacionais são descartadas para evitar backlog poluído.</li>
+                            <li><strong>Design Review:</strong> Alinhamento com o <em>Design System</em> unificado. Reutilização de componentes e padrões visuais existentes para mitigar o caos e a fragmentação de UX.</li>
+                        </ul>
+                    </div>
+                    <div class="criteria-card">
+                        <h4>2. Portão Técnico (Arquitetura e Segurança)</h4>
+                        <ul class="pc-list">
+                            <li><strong>Blindagem do Core:</strong> Vedação absoluta de acesso comunitário direto a barramentos de autenticação, faturamento e dados sensíveis. Contribuições rodam estritamente via APIs/SDKs de extensão.</li>
+                            <li><strong>Veto de Manutenção:</strong> Rejeição imediata de features úteis que impliquem em dívida técnica desproporcional, alto custo de infraestrutura ou sustentabilidade de suporte complexa a longo prazo.</li>
+                            <li><strong>Segurança Homologada:</strong> Validação mandatória por testes automatizados e code review estrito. A governança e a palavra final de aprovação são centralizadas e nunca comunitárias.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="arquitetura">
+            <h2 class="section-title">Estratégia Arquitetural: Core Interno vs Extensões da Comunidade</h2>
+            <div class="gov-box" style="background: #f4f6f8; border-color: var(--secondary); border-left-color: var(--primary);">
+                <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnica</div>
+                <div class="gov-text">
+                    Para crescer com velocidade sem comprometer a estabilidade do SuperApp, o produto adota um modelo <strong>Open-Core</strong>. A separação estrita entre o código da plataforma (Core) e os módulos periféricos (Extensões) dita a dinâmica de atuação entre o time interno e os desenvolvedores externos.
+                </div>
+                <div class="criteria-grid">
+                    <div class="criteria-card" style="border-top: 3px solid var(--primary);">
+                        <h4>Core do Sistema (Desenvolvimento Interno)</h4>
+                        <p class="node-desc" style="text-align: left; margin-bottom: 12px; color: var(--text-main);">Engenharia proprietária e fechada sob total responsabilidade do time interno da AUVP.</p>
+                        <ul class="pc-list">
+                            <li><strong>Infraestrutura Central:</strong> Motores de autenticação, criptografia de dados, barramento de permissões, logs de auditoria e APIs de conectividade global.</li>
+                            <li><strong>Zonas Restritas & Transações Crítica (Dados Sensíveis):</strong> Camada proprietária isolada que governa o motor de faturamento (billing), processamento severo de assinaturas e manipulação de credenciais financeiras. Por concentrar dados altamente confidenciais do ecossistema e fluxos operacionais críticos de backoffice, o acesso a este perímetro é totalmente blindado, restrito ao time interno de desenvolvimento e imune a intervenções externas.</li>
+                            <li><strong>Ciclo de Release (CI/CD):</strong> Gerenciamento dos servidores de Staging/Produção, automação de deploys, observabilidade sistêmica e execução de rollbacks.</li>
+                        </ul>
+                    </div>
+                    <div class="criteria-card" style="border-top: 3px solid var(--secondary);">
+                        <h4>Camadas de Extensão (Desenvolvimento Comunitário)</h4>
+                        <p class="node-desc" style="text-align: left; margin-bottom: 12px; color: var(--text-main);">Ecossistema modular aberto para contribuição, construção e evolução da comunidade técnica.</p>
+                        <ul class="pc-list">
+                            <li><strong>Módulos Funcionais Isolados:</strong> Interfaces de visualização do planejador financeiro, simuladores dinâmicos, utilitários de produtividade e ferramentas de analytics.</li>
+                            <li><strong>Camada Social e Plugins:</strong> Recursos periféricos do feed da comunidade, fóruns de discussão, integrações com APIs externas autorizadas e novos widgets para o HUB.</li>
+                            <li><strong>Refatorações e Testes:</strong> Escrita de coberturas de testes unitários para módulos abertos, correções de bugs reportados (bugfixes) e otimizações gerais de UI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pipeline">
+            <h2 class="section-title">Pipeline de Inovação: Da Ideia ao Lançamento</h2>
+            <div class="flow-grid">
+                
+                <div class="flow-card step-ideation">
+                    <div class="flow-step-num">Fase 01</div>
+                    <h3 class="flow-title">Submissão Estruturada</h3>
+                    <p class="flow-desc">Entrada de ideias ou bugs via template obrigatório (módulo, dor e impacto esperado). Evita requisições vagas ou puramente emocionais.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-comm">Comunidade</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-ideation">
+                    <div class="flow-step-num">Fase 02</div>
+                    <h3 class="flow-title">Triagem Funcional</h3>
+                    <p class="flow-desc">O Heavy User de cada módulo atua como primeiro filtro de ruído: categoriza, elimina duplicidades e avalia a real aderência de escopo.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">Heavy User (HU)</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-ideation">
+                    <div class="flow-step-num">Fase 03</div>
+                    <h3 class="flow-title">Community Discussion</h3>
+                    <p class="flow-desc">Refinamento coletivo obrigatório antes da abertura de votos. A comunidade debate casos de uso, benchmarks e riscos da proposta.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-comm">Comunidade</span>
+                        <span class="flow-actor-badge actor-po">Heavy User</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-ideation">
+                    <div class="flow-step-num">Fase 04</div>
+                    <h3 class="flow-title">Votação Ponderada</h3>
+                    <p class="flow-desc">Abertura de votação com pesos de reputação. O volume de votos serve como indicador de demanda e entra no cálculo do Score Híbrido.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-comm">Explorers & HUs</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-gate">
+                    <div class="flow-step-num">Fase 05</div>
+                    <h3 class="flow-title">Design Review</h3>
+                    <p class="flow-desc"><strong>Gate de Interface e Usabilidade:</strong> Avaliação obrigatória do fluxo de UX/UI frente ao Design System unificado do SuperApp.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">Core Team (Validação)</span>
+                        <span class="flow-actor-badge actor-comm">Comunidade (Feedback)</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-ideation">
+                    <div class="flow-step-num">Fase 06</div>
+                    <h3 class="flow-title">Aprovação & RFC</h3>
+                    <p class="flow-desc">A ideia amadurece e vira uma especificação técnica formal (RFC). O backlog é quebrado em tarefas, épicos e critérios de aceite.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">PM Central</span>
+                        <span class="flow-actor-badge actor-po">Heavy User</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-gate">
+                    <div class="flow-step-num">Fase 07</div>
+                    <h3 class="flow-title">Claiming de Tasks</h3>
+                    <p class="flow-desc">O Especialista Open Source mapeia as demandas aprovadas, faz a governança de labels no repositório e disponibiliza as tarefas de extensão abertas.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-gov">Esp. Open Source</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-dev">
+                    <div class="flow-step-num">Fase 08</div>
+                    <h3 class="flow-title">Dev Colaborativo</h3>
+                    <p class="flow-desc">Processo open-core padronizado dentro do GitHub: Issue → Fork → Branch de trabalho → Draft Pull Request e testes automatizados.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-dev">Devs da Comunidade</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-review">
+                    <div class="flow-step-num">Fase 09</div>
+                    <h3 class="flow-title" style="color: var(--danger);">Code Review & Security</h3>
+                    <p class="flow-desc"><strong>Filtro Técnico Crítico Interno:</strong> Varredura de segurança contra vulnerabilidades ou linhas maliciosas realizada estritamente pelos desenvolvedores da casa.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">Devs Internos (Exclusivo)</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-gate">
+                    <div class="flow-step-num">Fase 10</div>
+                    <h3 class="flow-title">Sandbox & Rollout</h3>
+                    <p class="flow-desc">A feature entra em ambiente de Staging. É testada via Feature Flags e canais Beta controlados pelos Heavy Users antes do deploy.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">Heavy Users</span>
+                        <span class="flow-actor-badge actor-comm">Beta Testers</span>
+                    </div>
+                </div>
+
+                <div class="flow-card step-release">
+                    <div class="flow-step-num">Fase 11</div>
+                    <h3 class="flow-title">Deploy & Reconhecimento</h3>
+                    <p class="flow-desc">Merge final realizado exclusivamente pela engenharia interna. Liberação em produção acompanhada de créditos e pontuação de gamificação.</p>
+                    <div class="flow-actors">
+                        <span class="flow-actor-badge actor-po">Devs Internos (Deploy)</span>
+                        <span class="flow-actor-badge actor-comm">Gamificação</span>
+                    </div>
                 </div>
 
             </div>
-        </div>
-
-        <h2 class="section-title">Diretrizes de Governança & Critérios de Aceite</h2>
-
-        <div class="gov-box">
-            <div class="gov-title">A Regra de Ouro da AUVP</div>
-            <div class="gov-text">
-                <strong>A comunidade influencia o roadmap. A AUVP controla o produto.</strong><br>
-                Evitamos o populismo técnico tratando os votos da comunidade estritamente como <em>sinal de demanda</em> e nunca como aprovação automática. Para que uma ideia saia do papel e entre oficialmente no backlog de desenvolvimento, ela precisa obrigatoriamente superar dois filtros severos de avaliação.
-            </div>
-            
-            <div class="criteria-grid">
-                <div class="criteria-card">
-                    <h4>1. Portão Funcional (Negócio e UX)</h4>
-                    <ul class="pc-list">
-                        <li><strong>Aderência Estratégica:</strong> Fortalecimento dos pilares de educação e produtividade financeira. Ideias sem conexão ao propósito central ou customizações hiper-nichadas são vetadas.</li>
-                        <li><strong>Validação de Dor Real:</strong> Resolução de gargalos recorrentes e escaláveis da base. Preferências individuais ou exceções operacionais são descartadas para evitar backlog poluído.</li>
-                        <li><strong>Design Review:</strong> Alinhamento com o <em>Design System</em> unificado. Reutilização de componentes e padrões visuais existentes para mitigar o caos e a fragmentação de UX.</li>
-                    </ul>
-                </div>
-                <div class="criteria-card">
-                    <h4>2. Portão Técnico (Arquitetura e Segurança)</h4>
-                    <ul class="pc-list">
-                        <li><strong>Blindagem do Core:</strong> Vedação absoluta de acesso comunitário direto a barramentos de autenticação, faturamento e dados sensíveis. Contribuições rodam estritamente via APIs/SDKs de extensão.</li>
-                        <li><strong>Veto de Manutenção:</strong> Rejeição imediata de features úteis que impliquem em dívida técnica desproporcional, alto custo de infraestrutura ou sustentabilidade de suporte complexa a longo prazo.</li>
-                        <li><strong>Segurança Homologada:</strong> Validação mandatória por testes automatizados e code review estrito. A governança e a palavra final de aprovação são centralizadas e nunca comunitárias.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Estratégia Arquitetural: Core Interno vs Extensões da Comunidade</h2>
-        <div class="gov-box" style="background: #f4f6f8; border-color: var(--secondary); border-left-color: var(--primary);">
-            <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnica</div>
-            <div class="gov-text">
-                Para crescer com velocidade sem comprometer a estabilidade do SuperApp, o produto adota um modelo <strong>Open-Core</strong>. A separação estrita entre o código da plataforma (Core) e os módulos periféricos (Extensões) dita a dinâmica de atuação entre o time interno e os desenvolvedores externos.
-            </div>
-            <div class="criteria-grid">
-                <div class="criteria-card" style="border-top: 3px solid var(--primary);">
-                    <h4 style="color: var(--primary);">Core do Sistema (Desenvolvimento Interno)</h4>
-                    <p class="node-desc" style="text-align: left; margin-bottom: 12px; color: var(--text-main);">Engenharia proprietária e fechada sob total responsabilidade do time interno da AUVP.</p>
-                    <ul class="pc-list">
-                        <li><strong>Infraestrutura Central:</strong> Motores de autenticação, criptografia de dados, barramento de permissões, logs de auditoria e APIs de conectividade global.</li>
-                        <li><strong>Camada Financeira Monetária:</strong> Módulos de faturamento (billing), processamento de assinaturas, transações críticas e controle operacional de backoffice sensível.</li>
-                        <li><strong>Ciclo de Release (CI/CD):</strong> Gerenciamento dos servidores de Staging/Produção, automação de deploys, observabilidade sistêmica e execução de rollbacks.</li>
-                    </ul>
-                </div>
-                <div class="criteria-card" style="border-top: 3px solid var(--secondary);">
-                    <h4 style="color: var(--secondary);">Camadas de Extensão (Desenvolvimento Comunitário)</h4>
-                    <p class="node-desc" style="text-align: left; margin-bottom: 12px; color: var(--text-main);">Ecossistema modular aberto para contribuição, construção e evolução da comunidade técnica.</p>
-                    <ul class="pc-list">
-                        <li><strong>Módulos Funcionais Isolados:</strong> Interfaces de visualização do planejador financeiro, simuladores dinâmicos, utilitários de produtividade e ferramentas de analytics.</li>
-                        <li><strong>Camada Social e Plugins:</strong> Recursos periféricos do feed da comunidade, fóruns de discussão, integrações com APIs externas autorizadas e novos widgets para o HUB.</li>
-                        <li><strong>Refatorações e Testes:</strong> Escrita de coberturas de testes unitários para módulos abertos, correções de bugs reportados (bugfixes) e otimizações gerais de UI.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Pipeline de Inovação: Da Ideia ao Lançamento</h2>
-        
-        <div class="flow-grid">
-            
-            <div class="flow-card step-ideation">
-                <div class="flow-step-num">Fase 01</div>
-                <h3 class="flow-title">Submissão Estruturada</h3>
-                <p class="flow-desc">Entrada de ideias ou bugs via template obrigatório (módulo, dor e impacto esperado). Evita requisições vagas ou puramente emocionais.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-comm">Comunidade</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-ideation">
-                <div class="flow-step-num">Fase 02</div>
-                <h3 class="flow-title">Triagem Funcional</h3>
-                <p class="flow-desc">O Heavy User de cada módulo atua como primeiro filtro de ruído: categoriza, elimina duplicidades e avalia a real aderência de escopo.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">Heavy User (HU)</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-ideation">
-                <div class="flow-step-num">Fase 03</div>
-                <h3 class="flow-title">Community Discussion</h3>
-                <p class="flow-desc">Refinamento coletivo obrigatório antes da abertura de votos. A comunidade debate casos de uso, benchmarks e riscos da proposta.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-comm">Comunidade</span>
-                    <span class="flow-actor-badge actor-po">Heavy User</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-ideation">
-                <div class="flow-step-num">Fase 04</div>
-                <h3 class="flow-title">Votação Ponderada</h3>
-                <p class="flow-desc">Abertura de votação com pesos de reputação. O volume de votos serve como indicador de demanda e entra no cálculo do Score Híbrido.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-comm">Explorers & HUs</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-gate">
-                <div class="flow-step-num">Fase 05</div>
-                <h3 class="flow-title">Design Review</h3>
-                <p class="flow-desc"><strong>Gate de Interface e Usabilidade:</strong> Avaliação obrigatória do fluxo de UX/UI frente ao Design System unificado do SuperApp.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">Core Team (Validação)</span>
-                    <span class="flow-actor-badge actor-comm">Comunidade (Feedback)</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-ideation">
-                <div class="flow-step-num">Fase 06</div>
-                <h3 class="flow-title">Aprovação & RFC</h3>
-                <p class="flow-desc">A ideia amadurece e vira uma especificação técnica formal (RFC). O backlog é quebrado em tarefas, épicos e critérios de aceite.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">PM Central</span>
-                    <span class="flow-actor-badge actor-po">Heavy User</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-gate">
-                <div class="flow-step-num">Fase 07</div>
-                <h3 class="flow-title">Claiming de Tasks</h3>
-                <p class="flow-desc">O Especialista Open Source mapeia as demandas aprovadas, faz a governança de labels no repositório e disponibiliza as tarefas de extensão abertas.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-gov">Esp. Open Source</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-dev">
-                <div class="flow-step-num">Fase 08</div>
-                <h3 class="flow-title">Dev Colaborativo</h3>
-                <p class="flow-desc">Processo open-core padronizado dentro do GitHub: Issue → Fork → Branch de trabalho → Draft Pull Request e testes automatizados.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-dev">Devs da Comunidade</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-review">
-                <div class="flow-step-num">Fase 09</div>
-                <h3 class="flow-title" style="color: var(--danger);">Code Review & Security</h3>
-                <p class="flow-desc"><strong>Filtro Técnico Crítico Interno:</strong> Varredura de segurança contra vulnerabilidades ou linhas maliciosas realizada estritamente pelos desenvolvedores da casa.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">Devs Internos (Exclusivo)</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-gate">
-                <div class="flow-step-num">Fase 10</div>
-                <h3 class="flow-title">Sandbox & Rollout</h3>
-                <p class="flow-desc">A feature entra em ambiente de Staging. É testada via Feature Flags e canais Beta controlados pelos Heavy Users antes do deploy.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">Heavy Users</span>
-                    <span class="flow-actor-badge actor-comm">Beta Testers</span>
-                </div>
-            </div>
-
-            <div class="flow-card step-release">
-                <div class="flow-step-num">Fase 11</div>
-                <h3 class="flow-title" style="color: var(--success);">Deploy & Reconhecimento</h3>
-                <p class="flow-desc">Merge final realizado exclusivamente pela engenharia interna. Liberação em produção acompanhada de créditos e pontuação de gamificação.</p>
-                <div class="flow-actors">
-                    <span class="flow-actor-badge actor-po">Devs Internos (Deploy)</span>
-                    <span class="flow-actor-badge actor-comm">Gamificação</span>
-                </div>
-            </div>
-
-        </div>
+        </section>
     </div>
 
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
