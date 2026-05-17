@@ -549,31 +549,67 @@
         .actor-dev { border-color: rgba(90, 107, 124, 0.3); color: var(--secondary); }
         .actor-gov { border-color: rgba(198, 40, 40, 0.2); color: var(--danger); }
 
-        /* Responsividade */
+        /* Responsividade Avançada */
         @media (max-width: 850px) {
-            .fixed-nav { padding: 10px 0; }
+            .fixed-nav { padding: 8px 0; }
             .nav-container { gap: 5px; padding: 0 15px; }
-            .nav-logo { height: 45px; }
+            .nav-logo { height: 42px; }
             .nav-links { display: none; }
-            .theme-toggle-btn { top: 8px; right: 10px; }
+            .theme-toggle-btn { top: 6px; right: 10px; }
             
-            /* Ajuste do padding do corpo para não cortar o conteúdo sob o header mobile fixo */
-            body { padding: 90px 10px 30px; font-size: 14px; } 
-            
-            /* Correção da legibilidade das fontes gerais e títulos no mobile */
-            h1 { font-size: 28px; }
+            /* Correção completa do espaçamento do topo e letras */
+            body { padding: 85px 12px 30px; font-size: 14px; } 
+            h1 { font-size: 26px; }
             h2.section-title { font-size: 18px; margin: 40px 0 20px 0; }
-            .subtitle { font-size: 14px; }
+            .subtitle { font-size: 13.5px; }
             
-            /* Ajuste do organograma para se tornar legível com rolagem horizontal contida */
+            /* --- REESTRUTURAÇÃO COMPLETA DO ORGANOGRAMA NO MOBILE --- */
+            /* Transforma o fluxo complexo lateral em uma leitura fluida vertical contida nas margens */
             .org-chart { 
-                padding: 20px 10px; 
-                align-items: flex-start; 
-                overflow-x: auto; 
-                -webkit-overflow-scrolling: touch;
+                padding: 25px 15px; 
+                align-items: center;
+                gap: 12px;
             }
-            .org-chart > * { min-width: 620px; } /* Garante que os nós mantenham o alinhamento sem amassar */
+            .org-chart .node {
+                width: 100%;
+                max-width: 290px;
+                margin: 0 auto;
+            }
+            .org-chart .branches { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 12px; 
+                width: 100%;
+            }
+            .org-chart .branch { 
+                width: 100%; 
+                gap: 12px;
+            }
+            .org-chart .sub-branches { 
+                flex-direction: column; 
+                gap: 12px; 
+                margin-top: 0;
+                width: 100%;
+            }
+            .org-chart .sub-branch-item {
+                width: 100%;
+            }
+            /* Oculta as linhas rígidas de desktop que quebram o layout mobile */
+            .org-chart .line-v,
+            .org-chart .branches::before,
+            .org-chart .branch::before,
+            .org-chart .sub-branches::before,
+            .org-chart .sub-branch-item::before { 
+                display: none !important; 
+            }
+            /* Adiciona margem sutil para separar os blocos lógicos */
+            .org-chart .branch-title {
+                margin: 15px 0 5px 0;
+                width: auto;
+                display: inline-block;
+            }
 
+            /* Componentes de Grid e Listas */
             .criteria-grid, .flow-grid { grid-template-columns: 1fr; gap: 20px; }
             .document-wrapper { padding: 30px 15px; border-radius: 8px; }
             .scenario-header { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -705,7 +741,7 @@
         <section id="arquitetura">
             <h2 class="section-title">Estratégia Arquitetural: Core Interno vs Extensões da Comunidade</h2>
             <div class="gov-box" style="background: #f4f6f8; border-color: var(--secondary); border-left-color: var(--primary);">
-                <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnico</div>
+                <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnica</div>
                 <div class="gov-text">
                     Para crescer com velocidade sem comprometer a estabilidade do SuperApp, o produto adota um modelo <strong>Open-Core</strong>. A separação estrita entre o código da plataforma (Core) e os módulos periféricos (Extensões) dita a dinâmica de atuação entre o time interno e os desenvolvedores externos.
                 </div>
