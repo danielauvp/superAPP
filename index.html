@@ -169,9 +169,13 @@
             background-color: rgba(255, 255, 255, 0.05);
         }
         .theme-toggle-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
         .theme-toggle-btn .moon-icon { display: block; }
         .theme-toggle-btn .sun-icon { display: none; }
@@ -557,14 +561,12 @@
             .nav-links { display: none; }
             .theme-toggle-btn { top: 6px; right: 10px; }
             
-            /* Correção completa do espaçamento do topo e letras */
+            /* --- REESTRUTURAÇÃO COMPLETA DO ORGANOGRAMA NO MOBILE --- */
             body { padding: 85px 12px 30px; font-size: 14px; } 
             h1 { font-size: 26px; }
             h2.section-title { font-size: 18px; margin: 40px 0 20px 0; }
             .subtitle { font-size: 13.5px; }
             
-            /* --- REESTRUTURAÇÃO COMPLETA DO ORGANOGRAMA NO MOBILE --- */
-            /* Transforma o fluxo complexo lateral em uma leitura fluida vertical contida nas margens */
             .org-chart { 
                 padding: 25px 15px; 
                 align-items: center;
@@ -594,7 +596,6 @@
             .org-chart .sub-branch-item {
                 width: 100%;
             }
-            /* Oculta as linhas rígidas de desktop que quebram o layout mobile */
             .org-chart .line-v,
             .org-chart .branches::before,
             .org-chart .branch::before,
@@ -602,7 +603,6 @@
             .org-chart .sub-branch-item::before { 
                 display: none !important; 
             }
-            /* Adiciona margem sutil para separar os blocos lógicos */
             .org-chart .branch-title {
                 margin: 15px 0 5px 0;
                 width: auto;
@@ -632,10 +632,18 @@
 
             <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Alternar tema">
                 <svg class="moon-icon" viewBox="0 0 24 24">
-                    <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.3-3.8 8.7.6 3.9 3.8 7.1 7.7 7.7 3.4.5 6.7-1 8.7-3.8.3-.4.9-.6 1.4-.4.5.2.8.7.7 1.2-.9 4.6-5 8.1-9.7 8.3zm-1.7-1.7  C7.2 5.1 4.2 8.2 4.2 12c0 4.3 3.5 7.8 7.8 7.8 3.8 0 6.9-3 7.7-6.4-1.1.5-2.3.8-3.5.8-4.7-.1-8.5-3.9-8.6-8.6-.1-1.3.2-2.5.7-3.3z"/>
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
                 <svg class="sun-icon" viewBox="0 0 24 24">
-                    <path d="M12 4.5c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zm0 18c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zm7.1-15.7c-.3 0-.5-.1-.7-.3l-1.4-1.4c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.2.2-.4.3-.7.3zm-12.8 12.8c-.3 0-.5-.1-.7-.3l-1.4-1.4c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.2.2-.4.3-.7.3zM22.5 13h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c-.6 0 1 .4 1 1s-.4 1-1 1zm-18 0h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c-.6 0 1 .4 1 1s-.4 1-1 1zm14.6 4.2c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.4.3-.7.3zm-12.8-12.8c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.4.3-.7.3zM12 16.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5zm0-7c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S13.4 9.5 12 9.5z"/>
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.22" x2="5.64" y2="17.78"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
             </button>
         </div>
@@ -652,7 +660,7 @@
             <h2 class="section-title">Governança e Estrutura Organizacional</h2>
             <div class="org-chart">
                 <div class="node level-1">
-                    <div class="node-title">PO Central</div>
+                    <div class="node-title">PM Central</div>
                     <div class="node-desc">Visão estratégica macro, integração de módulos e coordenação do roadmap do SuperApp.</div>
                 </div>
                 
@@ -722,7 +730,7 @@
                         <h4>1. Portão Funcional (Negócio e UX)</h4>
                         <ul class="pc-list">
                             <li><strong>Aderência Estratégica:</strong> Fortalecimento dos pilares de educação e produtividade financeira. Ideias sem conexão ao propósito central ou customizações hiper-nichadas são vetadas.</li>
-                            <li><strong>Validação de Dor Real:</strong> Resolução de gargalos recorrentes e escaláveis da base. Preferências individuais ou exceções operacionais são descartadas para evitar backlog poluído.</li>
+                            <li><strong>Validação de Dor Real:</strong> Resolução de gargalos recurrentes e escaláveis da base. Preferências individuais ou exceções operacionais são descartadas para evitar backlog poluído.</li>
                             <li><strong>Design Review:</strong> Alinhamento com o <em>Design System</em> unificado. Reutilização de componentes e padrões visuais existentes para mitigar o caos e a fragmentação de UX.</li>
                         </ul>
                     </div>
