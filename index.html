@@ -79,9 +79,9 @@
             background-color: var(--bg-page);
             line-height: 1.5;
             margin: 0;
-            padding: 170px 15px 40px; /* Base desktop controlada por padding */
+            padding: 150px 15px 40px; /* Ajustado padding superior para compensar o menu fixo maior */
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s, color 0.3s, padding-top 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* --- NAV / HEADER FIXO --- */
@@ -96,8 +96,8 @@
             border-bottom: 1px solid var(--border-light);
             z-index: 1000;
             box-shadow: 0 2px 15px rgba(0,0,0,0.02);
-            padding: 15px 0;
-            transition: background-color 0.3s, padding 0.3s;
+            padding: 15px 0; /* Padding vertical no header */
+            transition: background-color 0.3s;
         }
 
         .nav-container {
@@ -106,23 +106,23 @@
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Alinhamento vertical para centralizar tudo */
             align-items: center;
-            gap: 15px;
+            gap: 15px; /* Espaço entre a logo e os links */
             position: relative;
+            box-sizing: border-box;
         }
 
         .nav-logo {
-            height: 70px;
+            height: 70px; /* Logo central um pouco maior */
             object-fit: contain;
             display: block;
-            transition: height 0.3s;
         }
 
         .nav-links {
             display: flex;
             gap: 10px;
-            justify-content: center;
+            justify-content: center; /* Garante que os links fiquem centralizados na linha */
             width: 100%;
         }
 
@@ -135,7 +135,7 @@
             border-radius: 6px;
             border: 1px solid transparent;
             transition: var(--transition);
-            white-space: nowrap;
+            white-space: nowrap; /* Impede quebra de texto nos botões */
         }
 
         .nav-btn:hover {
@@ -187,7 +187,8 @@
             overflow: hidden;
             padding: 60px;
             border: 1px solid var(--border-light);
-            transition: background-color 0.3s, border-color 0.3s, padding 0.3s;
+            transition: background-color 0.3s, border-color 0.3s;
+            box-sizing: border-box;
         }
 
         /* Header Interno Centralizado */
@@ -250,7 +251,7 @@
 
         /* Espaçamento interno para âncoras de navegação */
         section {
-            scroll-margin-top: 170px;
+            scroll-margin-top: 170px; /* Ajustado para compensar o header maior */
         }
 
         /* --- ORGANOGRAMA ESTRUTURAL E FLUXO --- */
@@ -264,6 +265,8 @@
             border-radius: 12px;
             border: 1px solid var(--border-light);
             transition: background-color 0.3s, border-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .node {
@@ -277,6 +280,7 @@
             position: relative;
             z-index: 2;
             transition: var(--transition);
+            box-sizing: border-box;
         }
 
         .node:hover {
@@ -367,6 +371,7 @@
             margin-bottom: 24px;
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.03);
             transition: background-color 0.3s, border-color 0.3s;
+            box-sizing: border-box;
         }
         
         .gov-title {
@@ -397,6 +402,7 @@
             border-radius: 10px;
             padding: 24px;
             transition: var(--transition);
+            box-sizing: border-box;
         }
 
         .criteria-card:hover {
@@ -466,6 +472,7 @@
             box-shadow: 0 4px 16px rgba(43, 58, 74, 0.02);
             transition: var(--transition);
             border-top: 4px solid var(--secondary);
+            box-sizing: border-box;
         }
 
         .flow-card:hover {
@@ -533,102 +540,44 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        body.dark-mode .flow-actor-badge {
+            background: var(--bg-card);
+        }
 
         .actor-comm { border-color: rgba(212, 175, 55, 0.3); color: #b78a00; }
         .actor-po { border-color: rgba(43, 58, 74, 0.2); color: var(--primary); }
         .actor-dev { border-color: rgba(90, 107, 124, 0.3); color: var(--secondary); }
         .actor-gov { border-color: rgba(198, 40, 40, 0.2); color: var(--danger); }
 
-        /* --- RESPONSIVIDADE E CORREÇÕES MOBILE --- */
+        /* Responsividade */
         @media (max-width: 850px) {
-            body { 
-                padding: 110px 10px 30px; /* Reduz padding corporal e reajusta topo para compensar navbar mobile */
-            }
-            .fixed-nav { 
-                padding: 10px 0; 
-            }
-            .nav-container { 
-                gap: 0; 
-                flex-direction: row; 
-                justify-content: center; /* Centraliza estritamente a logo no mobile */
-            }
-            .nav-logo { 
-                height: 50px; /* Dimensão otimizada para telas pequenas mantendo boa leitura */
-            }
-            .nav-links { 
-                display: none; /* Oculta links estruturais repetitivos que poluem o cabeçalho móvel */
-            }
-            .theme-toggle-btn { 
-                top: 16px; 
-                right: 15px; 
-            }
-            .document-wrapper { 
-                padding: 30px 16px; 
-                border-radius: 12px;
-            }
-            .doc-intro-header {
-                padding-bottom: 25px;
-                margin-bottom: 35px;
-                gap: 10px;
-            }
-            .doc-intro-header h1 {
-                font-size: 26px; /* Tamanho confortável para títulos em mobile */
-            }
-            .doc-intro-header .subtitle {
-                font-size: 14px;
-            }
-            h2.section-title {
-                font-size: 18px;
-                margin: 40px 0 25px 0;
-            }
-
-            /* Organograma Mobile Sem Quebras Visuais */
-            .org-chart {
-                padding: 25px 15px;
-            }
-            .branches { 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 0; 
-                width: 100%;
-            }
-            .branches::before, .branch::before, .sub-branches::before, .sub-branch-item::before { 
-                display: none; /* Desativa linhas horizontais flutuantes do desktop */
-            }
-            .branch { 
-                width: 100%; 
-                margin-bottom: 0;
-            }
-            .branch-title {
-                margin: 25px 0 15px 0;
-                font-size: 10px;
-                padding: 4px 10px;
-            }
-            .sub-branches {
-                flex-direction: column;
-                gap: 0;
-                margin-top: 0;
-                width: 100%;
-            }
-            .sub-branch-item {
-                width: 100%;
-            }
-            .node {
-                width: 100%; /* Ocupa largura total disponível, eliminando scroll horizontal */
-                max-width: 290px;
-                margin: 10px auto;
-            }
-            .org-chart .line-v {
-                height: 20px; /* Linhas verticais mais curtas para compactar o fluxo */
-            }
+            .fixed-nav { padding: 10px 0; }
+            .nav-container { gap: 5px; padding: 0 15px; }
+            .nav-logo { height: 45px; }
+            .nav-links { display: none; }
+            .theme-toggle-btn { top: 8px; right: 10px; }
             
-            .criteria-grid, .flow-grid { 
-                grid-template-columns: 1fr; 
-                gap: 20px;
+            /* Ajuste do padding do corpo para não cortar o conteúdo sob o header mobile fixo */
+            body { padding: 90px 10px 30px; font-size: 14px; } 
+            
+            /* Correção da legibilidade das fontes gerais e títulos no mobile */
+            h1 { font-size: 28px; }
+            h2.section-title { font-size: 18px; margin: 40px 0 20px 0; }
+            .subtitle { font-size: 14px; }
+            
+            /* Ajuste do organograma para se tornar legível com rolagem horizontal contida */
+            .org-chart { 
+                padding: 20px 10px; 
+                align-items: flex-start; 
+                overflow-x: auto; 
+                -webkit-overflow-scrolling: touch;
             }
-            .criteria-card, .flow-card {
-                padding: 20px 16px;
-            }
+            .org-chart > * { min-width: 620px; } /* Garante que os nós mantenham o alinhamento sem amassar */
+
+            .criteria-grid, .flow-grid { grid-template-columns: 1fr; gap: 20px; }
+            .document-wrapper { padding: 30px 15px; border-radius: 8px; }
+            .scenario-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .gov-box { padding: 20px; }
         }
     </style>
 </head>
@@ -726,7 +675,7 @@
         <section id="diretrizes">
             <h2 class="section-title">Diretrizes de Governança & Critérios de Aceite</h2>
             <div class="gov-box">
-                <div class="gov-title">A Regra de Ouro da AUVP</div>
+                <div class="gov-title">REGRA IMPORTANTE</div>
                 <div class="gov-text">
                     <strong>A comunidade influencia o roadmap. A AUVP controla o produto.</strong><br>
                     Evitamos o populismo técnico tratando os votos da comunidade estritamente como <em>sinal de demanda</em> e nunca como aprovação automática. Para que uma ideia saia do papel e entre oficialmente no backlog de desenvolvimento, ela precisa obrigatoriamente superar dois filtros severos de avaliação.
@@ -756,7 +705,7 @@
         <section id="arquitetura">
             <h2 class="section-title">Estratégia Arquitetural: Core Interno vs Extensões da Comunidade</h2>
             <div class="gov-box" style="background: #f4f6f8; border-color: var(--secondary); border-left-color: var(--primary);">
-                <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnica</div>
+                <div class="gov-title" style="color: var(--primary);">Divisão de Escopo e Responsabilidade Técnico</div>
                 <div class="gov-text">
                     Para crescer com velocidade sem comprometer a estabilidade do SuperApp, o produto adota um modelo <strong>Open-Core</strong>. A separação estrita entre o código da plataforma (Core) e os módulos periféricos (Extensões) dita a dinâmica de atuação entre o time interno e os desenvolvedores externos.
                 </div>
